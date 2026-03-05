@@ -1,8 +1,47 @@
 (function() {
-    const formNext = document.getElementById('formNext');
-    if (formNext) {
-        const base = window.location.href.split('/').slice(0, -1).join('/') + '/';
-        formNext.value = base + 'obrigado.html';
+    const formContato = document.getElementById('formContato');
+    const formResult = document.getElementById('formResult');
+    if (formContato && formResult) {
+        formContato.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(formContato);
+            const object = Object.fromEntries(formData);
+            const json = JSON.stringify(object);
+            formResult.textContent = 'Enviando...';
+            formResult.style.color = 'var(--cor-texto-suave)';
+            formResult.style.display = 'block';
+            const btn = formContato.querySelector('button[type="submit"]');
+            if (btn) btn.disabled = true;
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: json
+            })
+            .then(async (response) => {
+                const data = await response.json();
+                if (response.status === 200) {
+                    formResult.textContent = 'Mensagem enviada! Entraremos em contato em até 24 horas.';
+                    formResult.style.color = '#22c55e';
+                    formContato.reset();
+                    setTimeout(() => {
+                        formResult.style.display = 'none';
+                    }, 5000);
+                } else {
+                    formResult.textContent = data.message || 'Erro ao enviar. Tente novamente.';
+                    formResult.style.color = '#ef4444';
+                }
+            })
+            .catch(() => {
+                formResult.textContent = 'Erro de conexão. Tente novamente.';
+                formResult.style.color = '#ef4444';
+            })
+            .finally(() => {
+                if (btn) btn.disabled = false;
+            });
+        });
     }
 
     const header = document.getElementById('header');

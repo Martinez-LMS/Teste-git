@@ -293,14 +293,15 @@
                 <span class="section-tag animate-on-scroll">Contato</span>
                 <h2 class="animate-on-scroll" data-delay="100">Vamos conversar?</h2>
                 <p class="contato-sub animate-on-scroll" data-delay="150">Entre em contato e descubra como podemos ajudar sua empresa. Respondemos em até 24 horas.</p>
-                <form class="contato-form animate-on-scroll" data-delay="200" id="formContato" action="https://formsubmit.co/leo.ooosla@gmail.com" method="POST">
-                    <input type="hidden" name="_subject" value="Contato pelo site - ZT Consulting">
-                    <input type="hidden" name="_captcha" value="false">
-                    <input type="hidden" name="_next" value="" id="formNext">
-                    <input type="text" name="nome" placeholder="Seu nome" required>
+                <form class="contato-form animate-on-scroll" data-delay="200" id="formContato">
+                    <input type="hidden" name="access_key" value="d4424677-086a-4b64-9038-40bd8344752a">
+                    <input type="hidden" name="subject" value="Contato pelo site - ZT Consulting">
+                    <input type="checkbox" name="botcheck" class="hidden" aria-hidden="true" tabindex="-1" autocomplete="off">
+                    <input type="text" name="name" placeholder="Seu nome" required>
                     <input type="email" name="email" placeholder="Seu e-mail" required>
-                    <input type="tel" name="telefone" placeholder="Seu telefone (opcional)">
-                    <textarea name="mensagem" placeholder="Sua mensagem" rows="5" required></textarea>
+                    <input type="tel" name="phone" placeholder="Seu telefone (opcional)">
+                    <textarea name="message" placeholder="Sua mensagem" rows="5" required></textarea>
+                    <div id="formResult" class="form-result"></div>
                     <button type="submit" class="btn btn-primary">Enviar</button>
                 </form>
             </div>
